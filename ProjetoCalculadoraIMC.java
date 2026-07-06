@@ -24,11 +24,15 @@ public class ProjetoCalculadoraIMC extends Application {
         // Botão para calcular o IMC
         Button botao = new Button("Calcular IMC");
         botao.setOnAction(e -> {
-            double peso = Double.parseDouble(campoPeso.getText());
-            double altura = Double.parseDouble(campoAltura.getText());
+            try {
+            double peso = Double.parseDouble(campoPeso.getText().replace(',', '.'));
+            double altura = Double.parseDouble(campoAltura.getText().replace(',', '.'));
 
             double imc = peso / (altura * altura);
             etiquetaResultado.setText(String.format("Seu IMC é: %.2f", imc));
+            } catch (NumberFormatException ex) {
+                etiquetaResultado.setText("Por favor, insira números válidos para peso e altura!");
+            }
         });
 
         // Layout vertical
@@ -37,7 +41,7 @@ public class ProjetoCalculadoraIMC extends Application {
         layout.setAlignment(Pos.CENTER);
 
         // Cena e Stage
-        Scene cena = new Scene(layout, 300, 250);
+        Scene cena = new Scene(layout, 350, 250);
         primaryStage.setTitle("Calculadora de IMC");
         primaryStage.setScene(cena);
         primaryStage.show();
@@ -47,19 +51,3 @@ public class ProjetoCalculadoraIMC extends Application {
         launch(args);
     }
 }
-
-/* Observações de Melhorias
-- Tratamento de Exception
-    try {
-        // peso
-        // altura
-        // Cálculo IMC
-        // resultado
-    } catch (NumberFormatException e) {
-        etiquetaResultado.setText("Por favor, insira números válidos para peso e altura");
-    } 
-
-- Conversão para separação de casas decimais com vírgula:   
-double peso = Double.parseDouble(campoPeso.getText().replace(',', '.'));
-double altura = Double.parseDouble(campoAltura.getText().replace(',', '.'));
-    */
